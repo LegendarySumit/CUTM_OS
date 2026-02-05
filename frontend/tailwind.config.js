@@ -1,0 +1,85 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,jsx}",
+    "./components/**/*.{js,jsx}",
+    "./layout/**/*.{js,jsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          50: '#f0f5fb',
+          100: '#e1eaf7',
+          200: '#c3d5ef',
+          300: '#a5bfe7',
+          400: '#87aadf',
+          500: '#6995d7',
+          600: '#1e3a8a',
+          700: '#003366',
+          800: '#002244',
+          900: '#001133',
+        },
+        accent: {
+          50: '#fff7f0',
+          100: '#ffede1',
+          200: '#ffdbc3',
+          300: '#ffc9a5',
+          400: '#ffb787',
+          500: '#ff6b35',
+          600: '#ff5722',
+          700: '#e64a19',
+          800: '#cc3d10',
+          900: '#b23008',
+        },
+        secondary: {
+          50: '#f0f9fb',
+          100: '#e1f3f7',
+          200: '#c3e9ef',
+          300: '#a5dfe7',
+          400: '#87d5df',
+          500: '#2d7a8a',
+          600: '#1a5a6a',
+          700: '#124a5a',
+          800: '#0a3a4a',
+          900: '#022a3a',
+        },
+        slate: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'system-ui', 'sans-serif'],
+      },
+      boxShadow: {
+        'sm': '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+        'base': '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+        'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
+        'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1)',
+      },
+      animation: {
+        'fade-in': 'fadeIn 0.3s ease-in',
+        'spin-slow': 'spin 3s linear infinite',
+      },
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
