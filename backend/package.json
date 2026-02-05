@@ -9,7 +9,8 @@
     "db:init": "node infrastructure/database/init.js --init",
     "db:migrate": "node infrastructure/database/migrate.js --migrate",
     "db:reset": "node infrastructure/database/reset.js --reset",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "npm rebuild bcrypt --build-from-source"
   },
   "keywords": [],
   "author": "",
