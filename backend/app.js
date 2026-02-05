@@ -3,6 +3,7 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { config } from "./infrastructure/config/env.js";
 import { pool } from "./infrastructure/database/connection.js";
+import { initializeDatabase } from "./infrastructure/database/init.js";
 import authRoutes from "./api/routes/auth.routes.js";
 import studentRoutes from "./api/routes/student.routes.js";
 import activityRoutes from "./api/routes/activity.routes.js";
@@ -10,6 +11,12 @@ import dashboardRoutes from "./api/routes/dashboard.routes.js";
 import feedbackRoutes from "./api/routes/feedback.routes.js";
 
 const app = express();
+
+// Initialize database on startup
+initializeDatabase().catch(err => {
+  console.error("⚠️  Database initialization warning:", err.message);
+  // Continue running even if init fails (tables may already exist)
+});
 
 // Rate limiting - Strict for auth endpoints, moderate for others
 const authLimiter = rateLimit({
