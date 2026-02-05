@@ -1,0 +1,13 @@
+{
+  "files.exclude": {
+    "**/.env": true,
+    "**/.env.local": true,
+    "**/.env.*.local": true,
+    "**/node_modules": true,
+    "**/.DS_Store": true
+  },
+  "search.exclude": {
+    "**/.env": true,
+    "**/node_modules": true
+  }
+}
