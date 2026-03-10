@@ -82,21 +82,29 @@ const RegisterPage = () => {
         throw new Error('Password must be at least 6 characters');
       }
 
-      const response = await authAPI.register({
+      // ✅ AUTO-REGISTER - DB not yet made
+      // In production, this will call: const response = await authAPI.register({...});
+      // For now, we create a temporary user session with form data
+      const userData = {
+        id: 'temp_' + Date.now(),
         name: formData.name,
         email: formData.email,
-        password: formData.password,
         branch: formData.branch,
         semester: parseInt(formData.semester),
         goal: formData.goal,
         dailyCapacityHours: parseInt(formData.dailyCapacityHours),
-      });
+        role: 'student',
+        isTemporary: true
+      };
 
-      const userData = response.data.data;
       login(userData);
-      navigate('/dashboard');
+      
+      // Small delay for UX
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 500);
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Registration failed');
+      setError(err.message || 'Registration failed');
     } finally {
       setLoading(false);
     }

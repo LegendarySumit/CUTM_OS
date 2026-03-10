@@ -37,7 +37,7 @@ export const register = async (req, res) => {
         branch: student.branch,
         semester: student.semester,
         goal: student.goal,
-        dailyCapacityHours: student.daily_capacity_hours
+        dailyCapacityHours: student.dailyCapacityHours
       }
     });
   } catch (err) {
@@ -79,7 +79,7 @@ export const login = async (req, res) => {
         branch: result.branch,
         semester: result.semester,
         goal: result.goal,
-        dailyCapacityHours: result.daily_capacity_hours
+        dailyCapacityHours: result.dailyCapacityHours
       }
     });
   } catch (err) {

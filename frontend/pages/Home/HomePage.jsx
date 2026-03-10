@@ -1,4 +1,4 @@
-import { BookOpen, Users, Zap, Award, GraduationCap, BarChart3 } from 'lucide-react';
+import { BookOpen, Users, Zap, Award, GraduationCap, BarChart3, Code, TrendingUp, DollarSign, Brain, PenTool, Atom, Target, Star, User } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../src/context/AuthContext';
 import PublicLayout from '../../components/layout/PublicLayout';
@@ -17,8 +17,8 @@ export default function HomePage() {
       description: "Explore comprehensive course materials, assignments, and resources tailored for CUTM students. Access intelligent study tools designed to enhance your academic performance.",
       bgGradient: "linear-gradient(135deg, rgba(37, 99, 235, 0.7) 0%, rgba(30, 64, 175, 0.7) 100%)",
       bgPattern: "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%)",
-      link: "/academics",
-      action: () => navigate("/academics")
+      link: "/academics#departments",
+      action: () => navigate("/academics#departments")
     },
     {
       icon: BarChart3,
@@ -35,8 +35,8 @@ export default function HomePage() {
       description: "Stay informed about important academic calendars, campus events, and student activities at CUTM. Never miss registration deadlines, exam schedules, or campus celebrations.",
       bgGradient: "linear-gradient(135deg, rgba(20, 184, 166, 0.7) 0%, rgba(13, 148, 136, 0.7) 100%)",
       bgPattern: "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.06) 0%, transparent 50%)",
-      link: "/student-life",
-      action: () => navigate("/student-life")
+      link: "/student-life#key-dates",
+      action: () => navigate("/student-life#key-dates")
     },
     {
       icon: Award,
@@ -44,8 +44,8 @@ export default function HomePage() {
       description: "Discover campus life at CUTM through immersive experiences. Learn about admissions, student facilities, alumni achievements, and connect with our thriving student community.",
       bgGradient: "linear-gradient(135deg, rgba(159, 18, 57, 0.7) 0%, rgba(127, 29, 29, 0.7) 100%)",
       bgPattern: "radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.05) 0%, transparent 50%)",
-      link: "/student-life",
-      action: () => navigate("/student-life")
+      link: "/student-life#alumni",
+      action: () => navigate("/student-life#alumni")
     }
   ];
 
@@ -205,7 +205,7 @@ export default function HomePage() {
                 instructor: "Prof. David Miller",
                 students: "342 enrolled",
                 level: "Beginner",
-                icon: "💻",
+                icon: Code,
                 youtubeLink: "https://www.youtube.com/playlist?list=PLrAXtmErZgOeiKm4sgNOknGvNjby9efdf"
               },
               {
@@ -214,7 +214,7 @@ export default function HomePage() {
                 instructor: "Prof. Sarah Lee",
                 students: "287 enrolled",
                 level: "Intermediate",
-                icon: "📈",
+                icon: TrendingUp,
                 youtubeLink: "https://www.youtube.com/playlist?list=PLJ6Y_dmVrKW2v8rLhOe4d9UvJLIYRWdDH"
               },
               {
@@ -223,7 +223,7 @@ export default function HomePage() {
                 instructor: "Prof. James Wilson",
                 students: "156 enrolled",
                 level: "Intermediate",
-                icon: "✍️",
+                icon: PenTool,
                 youtubeLink: "https://www.youtube.com/playlist?list=PL5MfDEYXFOdLXvVnI0L5A8Ck5L7CpuVXh"
               },
               {
@@ -232,7 +232,7 @@ export default function HomePage() {
                 instructor: "Prof. Emily Chen",
                 students: "198 enrolled",
                 level: "Advanced",
-                icon: "⚛️",
+                icon: Atom,
                 youtubeLink: "https://www.youtube.com/playlist?list=PLzJzwyf-7YAEbx2Y2OPRvEJVZvw2hLNV1"
               },
               {
@@ -241,7 +241,7 @@ export default function HomePage() {
                 instructor: "Prof. Michael Torres",
                 students: "412 enrolled",
                 level: "Beginner",
-                icon: "💰",
+                icon: DollarSign,
                 youtubeLink: "https://www.youtube.com/playlist?list=PLF1Z-APd9zK5PZIPZyqKy1WPWWJrmkC1d"
               },
               {
@@ -250,7 +250,7 @@ export default function HomePage() {
                 instructor: "Prof. Rachel Johnson",
                 students: "267 enrolled",
                 level: "Intermediate",
-                icon: "🧠",
+                icon: Brain,
                 youtubeLink: "https://www.youtube.com/playlist?list=PLrAXtmErZgOdP_8Cc3LCbduPf5k3x5cwY"
               }
             ].map((course, idx) => (
@@ -262,7 +262,10 @@ export default function HomePage() {
                 className="group bg-gradient-to-br from-slate-50 to-white p-6 rounded-lg border border-slate-200 hover:border-accent-400 hover:shadow-lg transition-all duration-300 transform hover:scale-105 cursor-pointer"
               >
                 <div className="flex items-start justify-between mb-4">
-                  <div className="text-4xl group-hover:scale-125 transition-transform duration-300">{course.icon}</div>
+                  {(() => {
+                    const IconComponent = course.icon;
+                    return <div className="p-3 rounded-lg bg-gradient-to-br from-primary-100 to-primary-50 group-hover:scale-125 transition-transform duration-300"><IconComponent size={32} className="text-primary-600" /></div>;
+                  })()}
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
                     course.level === 'Beginner' ? 'bg-green-100 text-green-800' :
                     course.level === 'Intermediate' ? 'bg-blue-100 text-blue-800' :
@@ -349,51 +352,51 @@ export default function HomePage() {
       </section>
 
       {/* Why Choose CUTM OS Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-primary-900 to-slate-900 py-20 sm:py-28 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-slate-50 via-white to-blue-50 py-20 sm:py-28 relative overflow-hidden border-t border-slate-200">
         {/* Decorative background elements */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-200/10 rounded-full blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6">Why Choose CUTM OS?</h2>
-            <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed">Everything you need to excel in your academic journey with cutting-edge features and comprehensive support</p>
+            <h2 className="text-4xl sm:text-5xl font-bold text-primary-900 mb-6">Why Choose CUTM OS?</h2>
+            <p className="text-xl text-slate-600 max-w-2xl mx-auto leading-relaxed">Everything you need to excel in your academic journey with cutting-edge features and comprehensive support</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
             {/* Feature 1: Comprehensive Resources */}
             <div className="group relative">
               {/* Gradient border effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 to-secondary-400/10 rounded-2xl opacity-0 group-hover:opacity-60 blur transition-all duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-300/30 to-blue-300/20 rounded-2xl opacity-0 group-hover:opacity-40 blur transition-all duration-300"></div>
               
-              <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-10 border border-white/20 group-hover:border-white/30 transition-all duration-300 overflow-hidden">
+              <div className="relative bg-gradient-to-br from-blue-50/80 to-primary-50/80 backdrop-blur-md rounded-2xl p-10 border border-primary-300/40 group-hover:border-primary-400/60 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                 {/* Background pattern */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-primary-400/10 rounded-full -mr-20 -mt-20 group-hover:bg-primary-400/15 group-hover:scale-125 transition-all duration-300"></div>
+                <div className="absolute top-0 right-0 w-40 h-40 bg-primary-300/15 rounded-full -mr-20 -mt-20 group-hover:bg-primary-300/25 group-hover:scale-125 transition-all duration-300"></div>
                 
                 <div className="relative z-10">
                   {/* Icon with animation */}
-                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-primary-500/20 to-primary-600/10 backdrop-blur-md mb-6 group-hover:from-primary-500/30 group-hover:to-primary-600/15 transition-all duration-300 transform group-hover:scale-110">
-                    <span className="text-5xl block">📚</span>
+                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-primary-200 to-primary-100 backdrop-blur-md mb-6 group-hover:from-primary-300 group-hover:to-primary-200 transition-all duration-300 transform group-hover:scale-110">
+                    <BookOpen size={40} className="text-primary-700" />
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-primary-200 transition-colors">Comprehensive Resources</h3>
+                  <h3 className="text-2xl font-bold text-primary-900 mb-4 group-hover:text-primary-700 transition-colors">Comprehensive Resources</h3>
                   
                   {/* Description */}
-                  <p className="text-slate-300 leading-relaxed mb-6">All your course materials, assignments, lecture notes, and study guides in one centralized platform for seamless learning.</p>
+                  <p className="text-slate-700 leading-relaxed mb-6">All your course materials, assignments, lecture notes, and study guides in one centralized platform for seamless learning.</p>
                   
                   {/* Feature list */}
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary-600"></span>
                       <span>Organized course library</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary-600"></span>
                       <span>Downloadable materials</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-primary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-primary-600"></span>
                       <span>Instant access anytime</span>
                     </li>
                   </ul>
@@ -404,36 +407,36 @@ export default function HomePage() {
             {/* Feature 2: Real-Time Analytics */}
             <div className="group relative">
               {/* Gradient border effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-secondary-400/20 to-accent-400/10 rounded-2xl opacity-0 group-hover:opacity-60 blur transition-all duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-300/30 to-orange-300/20 rounded-2xl opacity-0 group-hover:opacity-40 blur transition-all duration-300"></div>
               
-              <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-10 border border-white/20 group-hover:border-white/30 transition-all duration-300 overflow-hidden">
+              <div className="relative bg-gradient-to-br from-amber-50/80 to-orange-50/80 backdrop-blur-md rounded-2xl p-10 border border-amber-300/40 group-hover:border-amber-400/60 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                 {/* Background pattern */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-secondary-400/10 rounded-full -mr-20 -mt-20 group-hover:bg-secondary-400/15 group-hover:scale-125 transition-all duration-300"></div>
+                <div className="absolute top-0 right-0 w-40 h-40 bg-amber-300/15 rounded-full -mr-20 -mt-20 group-hover:bg-amber-300/25 group-hover:scale-125 transition-all duration-300"></div>
                 
                 <div className="relative z-10">
                   {/* Icon with animation */}
-                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-secondary-500/20 to-secondary-600/10 backdrop-blur-md mb-6 group-hover:from-secondary-500/30 group-hover:to-secondary-600/15 transition-all duration-300 transform group-hover:scale-110">
-                    <span className="text-5xl block">📊</span>
+                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-amber-200 to-orange-100 backdrop-blur-md mb-6 group-hover:from-amber-300 group-hover:to-orange-200 transition-all duration-300 transform group-hover:scale-110">
+                    <BarChart3 size={40} className="text-amber-700" />
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-secondary-200 transition-colors">Real-Time Analytics</h3>
+                  <h3 className="text-2xl font-bold text-amber-900 mb-4 group-hover:text-amber-800 transition-colors">Real-Time Analytics</h3>
                   
                   {/* Description */}
-                  <p className="text-slate-300 leading-relaxed mb-6">Track your performance with detailed insights, progress analytics, and personalized recommendations for continuous improvement.</p>
+                  <p className="text-slate-700 leading-relaxed mb-6">Track your performance with detailed insights, progress analytics, and personalized recommendations for continuous improvement.</p>
                   
                   {/* Feature list */}
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-secondary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
                       <span>Performance dashboard</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-secondary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
                       <span>Detailed insights</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-secondary-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
                       <span>AI recommendations</span>
                     </li>
                   </ul>
@@ -444,36 +447,36 @@ export default function HomePage() {
             {/* Feature 3: Goal Tracking */}
             <div className="group relative">
               {/* Gradient border effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-400/20 to-primary-400/10 rounded-2xl opacity-0 group-hover:opacity-60 blur transition-all duration-300"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-rose-300/30 to-pink-300/20 rounded-2xl opacity-0 group-hover:opacity-40 blur transition-all duration-300"></div>
               
-              <div className="relative bg-white/10 backdrop-blur-xl rounded-2xl p-10 border border-white/20 group-hover:border-white/30 transition-all duration-300 overflow-hidden">
+              <div className="relative bg-gradient-to-br from-rose-50/80 to-pink-50/80 backdrop-blur-md rounded-2xl p-10 border border-rose-300/40 group-hover:border-rose-400/60 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
                 {/* Background pattern */}
-                <div className="absolute top-0 right-0 w-40 h-40 bg-accent-400/10 rounded-full -mr-20 -mt-20 group-hover:bg-accent-400/15 group-hover:scale-125 transition-all duration-300"></div>
+                <div className="absolute top-0 right-0 w-40 h-40 bg-rose-300/15 rounded-full -mr-20 -mt-20 group-hover:bg-rose-300/25 group-hover:scale-125 transition-all duration-300"></div>
                 
                 <div className="relative z-10">
                   {/* Icon with animation */}
-                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-accent-500/20 to-accent-600/10 backdrop-blur-md mb-6 group-hover:from-accent-500/30 group-hover:to-accent-600/15 transition-all duration-300 transform group-hover:scale-110">
-                    <span className="text-5xl block">🎯</span>
+                  <div className="inline-block p-4 rounded-xl bg-gradient-to-br from-rose-200 to-pink-100 backdrop-blur-md mb-6 group-hover:from-rose-300 group-hover:to-pink-200 transition-all duration-300 transform group-hover:scale-110">
+                    <Target size={40} className="text-rose-700" />
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-accent-200 transition-colors">Goal Tracking</h3>
+                  <h3 className="text-2xl font-bold text-rose-900 mb-4 group-hover:text-rose-800 transition-colors">Goal Tracking</h3>
                   
                   {/* Description */}
-                  <p className="text-slate-300 leading-relaxed mb-6">Set academic goals, track milestones, celebrate achievements, and celebrate your success with our comprehensive achievement system.</p>
+                  <p className="text-slate-700 leading-relaxed mb-6">Set academic goals, track milestones, celebrate achievements, and celebrate your success with our comprehensive achievement system.</p>
                   
                   {/* Feature list */}
                   <ul className="space-y-2 text-sm">
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
                       <span>Goal setting tools</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
                       <span>Milestone tracking</span>
                     </li>
-                    <li className="flex items-center gap-2 text-slate-300">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-400"></span>
+                    <li className="flex items-center gap-2 text-slate-700">
+                      <span className="w-1.5 h-1.5 rounded-full bg-rose-600"></span>
                       <span>Achievement badges</span>
                     </li>
                   </ul>
@@ -498,21 +501,18 @@ export default function HomePage() {
                 name: "Sarah Johnson",
                 program: "Computer Science",
                 text: "CUTM OS completely transformed how I manage my courses. My GPA improved by 0.8 points!",
-                emoji: "👩‍🎓",
                 color: "primary"
               },
               {
                 name: "Michael Chen",
                 program: "Business Administration",
                 text: "The feedback system is incredible. I finally understand where I need to improve.",
-                emoji: "👨‍🎓",
                 color: "secondary"
               },
               {
                 name: "Emma Rodriguez",
                 program: "Engineering",
                 text: "Best platform for student success. Highly recommend to all students!",
-                emoji: "👩‍💼",
                 color: "accent"
               }
             ].map((testimonial, idx) => {
@@ -532,7 +532,7 @@ export default function HomePage() {
                     {/* Stars */}
                     <div className="flex gap-1 mb-6">
                       {[...Array(5)].map((_, i) => (
-                        <span key={i} className="text-lg">⭐</span>
+                        <Star key={i} size={18} className="fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
                     
@@ -544,7 +544,9 @@ export default function HomePage() {
                     
                     {/* Student Info */}
                     <div className="flex items-center gap-3">
-                      <div className="text-4xl group-hover:scale-110 transition-transform duration-300">{testimonial.emoji}</div>
+                      <div className="text-3xl group-hover:scale-110 transition-transform duration-300 bg-gradient-to-br from-blue-100 to-blue-50 rounded-full p-2">
+                        <User size={24} className="text-primary-600" />
+                      </div>
                       <div>
                         <p className="font-bold text-primary-900">{testimonial.name}</p>
                         <p className="text-sm text-slate-500 font-medium">{testimonial.program}</p>

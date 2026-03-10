@@ -371,7 +371,13 @@ export default function AdmissionsPage() {
           {/* CTA Section */}
           <div className="text-center pt-8">
             <p className="text-slate-700 text-lg mb-6 font-medium">Ready to explore your financial aid options?</p>
-            <button className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
+            <button 
+              onClick={() => {
+                const element = document.getElementById('connect-admissions');
+                element?.scrollIntoView({ behavior: 'smooth' });
+              }}
+              className="px-10 py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2 cursor-pointer"
+            >
               Apply for Financial Aid
               <ArrowRight className="w-5 h-5" />
             </button>
@@ -403,17 +409,28 @@ export default function AdmissionsPage() {
               </p>
 
               {submitted ? (
-                <div className="bg-green-500/20 border border-green-400 rounded-xl p-6 text-center animate-pulse">
-                  <CheckCircle size={40} className="mx-auto mb-3 text-green-400" />
-                  <h3 className="text-lg font-bold text-white mb-2">Thank You!</h3>
-                  <p className="text-sm text-slate-200">We'll be in touch soon.</p>
+                <div className="bg-gradient-to-br from-green-400/20 to-emerald-500/20 border-2 border-green-400 rounded-2xl p-8 text-center animate-pulse">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-emerald-500 flex items-center justify-center mx-auto mb-4">
+                    <CheckCircle size={36} className="text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-green-600 mb-2">Thank You!</h3>
+                  <p className="text-green-700 font-medium">We've received your information and will be in touch soon.</p>
                 </div>
               ) : (
-                <form onSubmit={handleSubmitContact} className="space-y-5">
-                  {/* Name Fields */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    <div>
-                      <label className="text-xs font-semibold text-white mb-1.5 block">First Name *</label>
+                <form onSubmit={handleSubmitContact} className="space-y-6">
+                  {/* Form Header */}
+                  <div className="mb-8 pb-6 border-b-2 border-slate-200">
+                    <p className="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-2">Step 3 of 4</p>
+                    <p className="text-slate-300 text-base">Provide your information so we can help guide your admissions journey</p>
+                  </div>
+
+                  {/* Name Fields - Two Column */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="group">
+                      <label className="text-xs font-bold text-white mb-2.5 uppercase tracking-wider flex items-center gap-2">
+                        <User size={14} className="text-accent-300" />
+                        First Name *
+                      </label>
                       <input
                         type="text"
                         placeholder="John"
@@ -421,16 +438,19 @@ export default function AdmissionsPage() {
                         onChange={(e) => handleContactChange('firstName', e.target.value)}
                         onFocus={() => setFocusedField('firstName')}
                         onBlur={() => setFocusedField(null)}
-                        className={`w-full px-3 py-2.5 rounded-lg bg-white text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none ${
+                        className={`w-full px-4 py-3 rounded-xl bg-white/95 text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none font-semibold ${
                           focusedField === 'firstName' 
-                            ? 'border-accent-400 shadow-lg shadow-accent-400/50' 
-                            : 'border-white hover:border-slate-200'
+                            ? 'border-accent-400 shadow-lg shadow-accent-400/50 bg-white' 
+                            : 'border-white/40 hover:border-white/60'
                         }`}
                         required
                       />
                     </div>
-                    <div>
-                      <label className="text-xs font-semibold text-white mb-1.5 block">Last Name *</label>
+                    <div className="group">
+                      <label className="text-xs font-bold text-white mb-2.5 uppercase tracking-wider flex items-center gap-2">
+                        <User size={14} className="text-accent-300" />
+                        Last Name *
+                      </label>
                       <input
                         type="text"
                         placeholder="Doe"
@@ -438,10 +458,10 @@ export default function AdmissionsPage() {
                         onChange={(e) => handleContactChange('lastName', e.target.value)}
                         onFocus={() => setFocusedField('lastName')}
                         onBlur={() => setFocusedField(null)}
-                        className={`w-full px-3 py-2.5 rounded-lg bg-white text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none ${
+                        className={`w-full px-4 py-3 rounded-xl bg-white/95 text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none font-semibold ${
                           focusedField === 'lastName' 
-                            ? 'border-accent-400 shadow-lg shadow-accent-400/50' 
-                            : 'border-white hover:border-slate-200'
+                            ? 'border-accent-400 shadow-lg shadow-accent-400/50 bg-white' 
+                            : 'border-white/40 hover:border-white/60'
                         }`}
                         required
                       />
@@ -449,8 +469,11 @@ export default function AdmissionsPage() {
                   </div>
 
                   {/* Email */}
-                  <div>
-                    <label className="text-xs font-semibold text-white mb-1.5 block">Email *</label>
+                  <div className="group">
+                    <label className="text-xs font-bold text-white mb-2.5 uppercase tracking-wider flex items-center gap-2">
+                      <Mail size={14} className="text-accent-300" />
+                      Email *
+                    </label>
                     <input
                       type="email"
                       placeholder="john@example.com"
@@ -458,18 +481,21 @@ export default function AdmissionsPage() {
                       onChange={(e) => handleContactChange('email', e.target.value)}
                       onFocus={() => setFocusedField('email')}
                       onBlur={() => setFocusedField(null)}
-                      className={`w-full px-3 py-2.5 rounded-lg bg-white text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/95 text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none font-semibold ${
                         focusedField === 'email' 
-                          ? 'border-accent-400 shadow-lg shadow-accent-400/50' 
-                          : 'border-white hover:border-slate-200'
+                          ? 'border-accent-400 shadow-lg shadow-accent-400/50 bg-white' 
+                          : 'border-white/40 hover:border-white/60'
                       }`}
                       required
                     />
                   </div>
 
                   {/* Phone */}
-                  <div>
-                    <label className="text-xs font-semibold text-white mb-1.5 block">Phone *</label>
+                  <div className="group">
+                    <label className="text-xs font-bold text-white mb-2.5 uppercase tracking-wider flex items-center gap-2">
+                      <Phone size={14} className="text-accent-300" />
+                      Phone *
+                    </label>
                     <input
                       type="tel"
                       placeholder="(555) 123-4567"
@@ -477,58 +503,76 @@ export default function AdmissionsPage() {
                       onChange={(e) => handleContactChange('phone', e.target.value)}
                       onFocus={() => setFocusedField('phone')}
                       onBlur={() => setFocusedField(null)}
-                      className={`w-full px-3 py-2.5 rounded-lg bg-white text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/95 text-slate-900 placeholder-slate-500 border-2 text-sm transition-all duration-300 focus:outline-none font-semibold ${
                         focusedField === 'phone' 
-                          ? 'border-accent-400 shadow-lg shadow-accent-400/50' 
-                          : 'border-white hover:border-slate-200'
+                          ? 'border-accent-400 shadow-lg shadow-accent-400/50 bg-white' 
+                          : 'border-white/40 hover:border-white/60'
                       }`}
                       required
                     />
                   </div>
 
-                  {/* Interest */}
-                  <div>
-                    <label className="text-xs font-semibold text-white mb-1.5 block">Interested in Studying</label>
+                  {/* Interest - Enhanced Dropdown */}
+                  <div className="group">
+                    <label className="text-xs font-bold text-white mb-2.5 uppercase tracking-wider flex items-center gap-2">
+                      <GraduationCap size={14} className="text-accent-300" />
+                      Interested in Studying
+                    </label>
                     <select 
                       value={contactForm.interestedIn} 
                       onChange={(e) => handleContactChange('interestedIn', e.target.value)}
                       onFocus={() => setFocusedField('interestedIn')}
                       onBlur={() => setFocusedField(null)}
-                      className={`w-full px-3 py-2.5 rounded-lg bg-white text-slate-900 border-2 text-sm transition-all duration-300 focus:outline-none cursor-pointer ${
+                      className={`w-full px-4 py-3 rounded-xl bg-white/95 text-slate-900 border-2 text-sm transition-all duration-300 focus:outline-none cursor-pointer font-semibold appearance-none ${
                         focusedField === 'interestedIn' 
-                          ? 'border-accent-400 shadow-lg shadow-accent-400/50' 
-                          : 'border-white hover:border-slate-200'
+                          ? 'border-accent-400 shadow-lg shadow-accent-400/50 bg-white' 
+                          : 'border-white/40 hover:border-white/60'
                       }`}
                     >
-                      <option value="undergraduate">Undergraduate Program</option>
-                      <option value="graduate">Graduate Program</option>
-                      <option value="transfer">Transfer Program</option>
-                      <option value="other">Other</option>
+                      <option value="undergraduate">🎓 Undergraduate Program</option>
+                      <option value="graduate">📚 Graduate Program</option>
+                      <option value="transfer">→ Transfer Program</option>
+                      <option value="other">❓ Other</option>
                     </select>
+                  </div>
+
+                  {/* Divider */}
+                  <div className="flex items-center gap-4 py-4">
+                    <div className="flex-1 h-px bg-gradient-to-r from-white/20 via-accent-400/40 to-white/20"></div>
+                    <span className="text-xs font-semibold text-accent-200 uppercase tracking-wider">Ready to Submit</span>
+                    <div className="flex-1 h-px bg-gradient-to-r from-white/20 via-accent-400/40 to-white/20"></div>
                   </div>
 
                   {/* Submit Button */}
                   <button 
                     type="submit"
                     disabled={submitting}
-                    className={`w-full font-semibold py-2.5 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 text-sm ${
+                    className={`w-full font-bold py-4 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 text-base transform hover:scale-105 shadow-lg ${
                       submitting
-                        ? 'bg-slate-400 text-slate-600 cursor-not-allowed'
-                        : 'bg-white text-primary-900 hover:bg-slate-100 shadow-lg hover:shadow-xl transform hover:scale-105'
+                        ? 'bg-slate-400/50 text-slate-200 cursor-not-allowed'
+                        : 'bg-gradient-to-r from-white/95 to-slate-100 text-primary-900 hover:from-white hover:to-slate-50 hover:shadow-xl'
                     }`}
                   >
                     {submitting ? (
                       <>
-                        <div className="animate-spin">⏳</div>
-                        Submitting...
+                        <div className="w-5 h-5 border-3 border-current border-t-transparent rounded-full animate-spin"></div>
+                        <span>Sending Your Information...</span>
                       </>
                     ) : (
                       <>
-                        <MessageCircle size={16} />
-                        Submit
+                        <MessageCircle size={18} />
+                        <span>Start Your Journey</span>
+                        <ArrowRight size={18} />
                       </>
                     )}
                   </button>
+
+                  {/* Info Section */}
+                  <div className="p-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl">
+                    <p className="text-xs text-white/80 text-center font-medium">
+                      ✓ Your information is secure and will only be used for admissions purposes
+                    </p>
+                  </div>
                 </form>
               )}
             </div>

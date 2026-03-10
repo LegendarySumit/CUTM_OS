@@ -1,11 +1,25 @@
 import { Code, Microscope, PenTool, Globe, Brain, Briefcase, ArrowRight, Award, Users, BookOpen } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import PublicLayout from '../../components/layout/PublicLayout';
 import HeroSection from '../../components/sections/HeroSection';
 import { Button } from '../../components/ui/Button';
 
 export default function AcademicsPage() {
   const navigate = useNavigate();
+
+  // Auto-scroll to hash section when page loads or hash changes
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove '#' from hash
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, []);
   const departments = [
     {
       icon: Code,
@@ -120,7 +134,7 @@ export default function AcademicsPage() {
       />
 
       {/* Departments Section */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+      <section id="departments" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl bg-primary-500 opacity-10 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl bg-secondary-500 opacity-10 pointer-events-none"></div>
@@ -183,7 +197,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Degree Requirements Section */}
-      <section className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
+      <section id="requirements" className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-cyan-50">
         {/* Decorative background elements */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl bg-blue-300/20 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl bg-cyan-300/20 pointer-events-none"></div>
@@ -263,7 +277,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Advanced Learning Programs Section */}
-      <section className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
+      <section id="programs" className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32">
         {/* Decorative background */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl bg-accent-500 opacity-10 pointer-events-none"></div>
 
@@ -316,7 +330,7 @@ export default function AcademicsPage() {
       </section>
 
       {/* Achievements Section */}
-      <section className="relative bg-gradient-to-br from-primary-50 via-blue-50 to-slate-50 py-24 sm:py-32 overflow-hidden">
+      <section id="achievements" className="relative bg-gradient-to-br from-primary-50 via-blue-50 to-slate-50 py-24 sm:py-32 overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-0 left-0 w-96 h-96 rounded-full blur-3xl bg-primary-500 opacity-5 pointer-events-none"></div>
         <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full blur-3xl bg-secondary-500 opacity-5 pointer-events-none"></div>

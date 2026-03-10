@@ -1,5 +1,6 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import CollegeLogo from '../Logo/CollegeLogo';
 
 export default function PublicFooter() {
@@ -113,21 +114,21 @@ export default function PublicFooter() {
           {/* Footer Links */}
           <div className="border-t border-slate-700 pt-8 mb-8">
             <div className="flex flex-wrap justify-center gap-x-4 gap-y-2 text-sm text-slate-300">
-              <a href="#" className="hover:text-white transition">Accessibility</a>
+              <Link to="/accessibility" className="hover:text-white transition">Accessibility</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Contact Us</a>
+              <a href="mailto:support@cutmos.edu" className="hover:text-white transition">Contact Us</a>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Careers</a>
+              <Link to="/careers" className="hover:text-white transition">Careers</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Support</a>
+              <Link to="/support" className="hover:text-white transition">Support</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Student Resources</a>
+              <Link to="/resources" className="hover:text-white transition">Student Resources</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Privacy Policy</a>
+              <Link to="/privacy-policy" className="hover:text-white transition">Privacy Policy</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Terms of Service</a>
+              <Link to="/terms-of-service" className="hover:text-white transition">Terms of Service</Link>
               <span>•</span>
-              <a href="#" className="hover:text-white transition">Newsletter</a>
+              <a href="https://mailchimp.com" target="_blank" rel="noopener noreferrer" className="hover:text-white transition">Newsletter</a>
             </div>
           </div>
 

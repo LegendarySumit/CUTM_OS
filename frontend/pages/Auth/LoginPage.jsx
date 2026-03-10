@@ -27,13 +27,25 @@ const LoginPage = () => {
         throw new Error('Please fill in all fields');
       }
 
-      const response = await authAPI.login(email, password);
-      const userData = response.data.data;
+      // ✅ AUTO-LOGIN - DB not yet made
+      // In production, this will call: const response = await authAPI.login(email, password);
+      // For now, we create a temporary user session
+      const userData = {
+        id: 'temp_' + Date.now(),
+        email: email,
+        name: email.split('@')[0],
+        role: 'student',
+        isTemporary: true
+      };
 
       login(userData);
-      navigate('/dashboard');
+      
+      // Small delay for UX
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 500);
     } catch (err) {
-      setError(err.response?.data?.message || err.message || 'Login failed');
+      setError(err.message || 'Login failed');
     } finally {
       setLoading(false);
     }

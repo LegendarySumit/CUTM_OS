@@ -1,4 +1,4 @@
-import { X } from 'lucide-react';
+import { X, Code, TrendingUp, PenTool, Atom, DollarSign, Brain, Ruler, Dna, Palette, BookOpen, Music } from 'lucide-react';
 
 export default function CourseCatalogueModal({ isOpen, onClose }) {
   if (!isOpen) return null;
@@ -10,7 +10,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. David Miller",
       students: "342 enrolled",
       level: "Beginner",
-      icon: "💻",
+      icon: Code,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsTryvtXtThLVank8O2yW1qvB"
     },
     {
@@ -19,7 +19,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Sarah Lee",
       students: "287 enrolled",
       level: "Intermediate",
-      icon: "📈",
+      icon: TrendingUp,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsTqt8pLdLc1msmM1D8bMJKPa"
     },
     {
@@ -28,7 +28,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. James Wilson",
       students: "156 enrolled",
       level: "Intermediate",
-      icon: "✍️",
+      icon: PenTool,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsTopLDi5E37z8GrGdCQzJQ5l"
     },
     {
@@ -37,7 +37,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Emily Chen",
       students: "198 enrolled",
       level: "Advanced",
-      icon: "⚛️",
+      icon: Atom,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsThfO7gX-8j1wSTTbf3V3M8u"
     },
     {
@@ -46,7 +46,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Michael Torres",
       students: "412 enrolled",
       level: "Beginner",
-      icon: "💰",
+      icon: DollarSign,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsTo7p8PdxqZrMfjUiYRqw_FU"
     },
     {
@@ -55,7 +55,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Rachel Johnson",
       students: "267 enrolled",
       level: "Intermediate",
-      icon: "🧠",
+      icon: Brain,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT7aMmK7k9rLqVVJDfMUJSrT"
     },
     {
@@ -64,7 +64,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Robert Smith",
       students: "203 enrolled",
       level: "Advanced",
-      icon: "📐",
+      icon: Ruler,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT5GYvyNuXPjV8OXpU8zFaKO"
     },
     {
@@ -73,7 +73,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Lisa Anderson",
       students: "289 enrolled",
       level: "Intermediate",
-      icon: "🧬",
+      icon: Dna,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT_hqpXvCqAK-lj_5qh2F3Ou"
     },
     {
@@ -82,7 +82,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Maria Garcia",
       students: "176 enrolled",
       level: "Beginner",
-      icon: "🎨",
+      icon: Palette,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT4bUvXe_EZVjyB_4U5qR7Pl"
     },
     {
@@ -91,7 +91,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Thomas Brown",
       students: "234 enrolled",
       level: "Intermediate",
-      icon: "📖",
+      icon: BookOpen,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT6_6qJzK1_fXjZM2_2YhKKm"
     },
     {
@@ -100,7 +100,7 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
       instructor: "Prof. Angela White",
       students: "145 enrolled",
       level: "Beginner",
-      icon: "🎵",
+      icon: Music,
       youtubeLink: "https://www.youtube.com/playlist?list=PLDzeHZWIZsT2m3XqF8k5_9VnZZQjH_3Zr"
     },
     {
@@ -151,7 +151,10 @@ export default function CourseCatalogueModal({ isOpen, onClose }) {
               >
                 {/* Top section */}
                 <div className="flex items-start justify-between mb-4">
-                  <div className="text-4xl group-hover:scale-125 transition-transform duration-300">{course.icon}</div>
+                  {(() => {
+                    const IconComponent = course.icon;
+                    return <div className="p-3 rounded-lg bg-gradient-to-br from-primary-100 to-primary-50 group-hover:scale-125 transition-transform duration-300"><IconComponent size={32} className="text-primary-600" /></div>;
+                  })()}
                   <span className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ml-2 ${
                     course.level === 'Beginner' ? 'bg-green-100 text-green-800' :
                     course.level === 'Intermediate' ? 'bg-blue-100 text-blue-800' :

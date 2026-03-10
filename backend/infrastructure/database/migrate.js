@@ -1,42 +1,21 @@
-import { pool } from "./connection.js";
+import { getFirestore, initializeFirestore } from "./firestore.js";
 
 export const migrateDatabase = async () => {
   try {
-    console.log("🔄 Checking and migrating database...");
+    console.log("🔄 Checking Firestore database...");
 
-    // Check if password column exists
-    const result = await pool.query(`
-      SELECT column_name 
-      FROM information_schema.columns 
-      WHERE table_name = 'students' AND column_name = 'password'
-    `);
-
-    if (result.rows.length === 0) {
-      console.log("⚠️  Password column not found. Adding it...");
-      await pool.query(`
-        ALTER TABLE students 
-        ADD COLUMN password VARCHAR(255) DEFAULT 'temp123'
-      `);
-      console.log("✅ Password column added successfully");
-    } else {
-      console.log("✅ Password column already exists");
-    }
-
-    // Check if activities table has correct structure
-    const activitiesResult = await pool.query(`
-      SELECT column_name 
-      FROM information_schema.columns 
-      WHERE table_name = 'activities' AND column_name = 'student_id'
-    `);
-
-    if (activitiesResult.rows.length > 0) {
-      console.log("✅ Activities table is correct");
-    }
-
-    console.log("✅ Database migration complete!");
+    // Initialize Firestore if not already initialized
+    await initializeFirestore();
+    
+    // Firestore is schemaless, so no migration is needed
+    // Collections and fields are created automatically when documents are written
+    
+    console.log("✅ Firestore database check complete");
+    console.log("📝 Note: Firestore collections are created automatically when documents are added");
+    
     return true;
   } catch (err) {
-    console.error("❌ Database migration error:", err.message);
+    console.error("❌ Database check error:", err.message);
     throw err;
   }
 };
@@ -46,7 +25,7 @@ const args = process.argv.slice(2);
 if (args.includes('--migrate')) {
   migrateDatabase()
     .then(() => {
-      console.log("Migration successful!");
+      console.log("Database check successful!");
       process.exit(0);
     })
     .catch((err) => {

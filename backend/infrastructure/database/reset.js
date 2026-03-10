@@ -1,54 +1,26 @@
-import { pool } from "./connection.js";
+import { getFirestore, initializeFirestore } from "./firestore.js";
 
 export const resetDatabase = async () => {
   try {
     console.log("🔄 Resetting database...");
 
-    // Drop tables if they exist
-    await pool.query(`
-      DROP TABLE IF EXISTS activities CASCADE;
-      DROP TABLE IF EXISTS students CASCADE;
-    `);
-    console.log("✅ Old tables dropped");
+    // Initialize Firestore
+    await initializeFirestore();
+    const db = getFirestore();
 
-    // Create students table fresh
-    await pool.query(`
-      CREATE TABLE students (
-        id UUID PRIMARY KEY,
-        name VARCHAR(255) NOT NULL,
-        email VARCHAR(255) UNIQUE NOT NULL,
-        password VARCHAR(255) NOT NULL,
-        branch VARCHAR(100),
-        semester INTEGER DEFAULT 1,
-        goal TEXT,
-        daily_capacity_hours INTEGER DEFAULT 2,
-        created_at TIMESTAMP DEFAULT NOW(),
-        updated_at TIMESTAMP DEFAULT NOW()
-      );
-    `);
-    console.log("✅ Students table created");
+    // Delete all documents from students collection
+    const studentsSnapshot = await db.collection("students").get();
+    for (const doc of studentsSnapshot.docs) {
+      await doc.ref.delete();
+    }
+    console.log(`✅ Deleted ${studentsSnapshot.docs.length} student documents`);
 
-    // Create activities table
-    await pool.query(`
-      CREATE TABLE activities (
-        id UUID PRIMARY KEY,
-        student_id UUID NOT NULL REFERENCES students(id) ON DELETE CASCADE,
-        domain VARCHAR(50) NOT NULL,
-        action VARCHAR(255) NOT NULL,
-        metadata JSONB,
-        created_at TIMESTAMP DEFAULT NOW(),
-        updated_at TIMESTAMP DEFAULT NOW()
-      );
-    `);
-    console.log("✅ Activities table created");
-
-    // Create indexes
-    await pool.query(`
-      CREATE INDEX idx_students_email ON students(email);
-      CREATE INDEX idx_activities_student_id ON activities(student_id);
-      CREATE INDEX idx_activities_created_at ON activities(created_at);
-    `);
-    console.log("✅ Indexes created");
+    // Delete all documents from activities collection
+    const activitiesSnapshot = await db.collection("activities").get();
+    for (const doc of activitiesSnapshot.docs) {
+      await doc.ref.delete();
+    }
+    console.log(`✅ Deleted ${activitiesSnapshot.docs.length} activity documents`);
 
     console.log("✅ Database reset successfully!");
     return true;

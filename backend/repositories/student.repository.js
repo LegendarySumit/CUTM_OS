@@ -1,76 +1,93 @@
-import { pool } from "../infrastructure/database/connection.js";
+import { getFirestore } from "../infrastructure/database/firestore.js";
 import { v4 as uuid } from "uuid";
 
+const STUDENTS_COLLECTION = "students";
+
 export const createStudent = async (student) => {
+  const db = getFirestore();
   const id = uuid();
 
-  const query = `
-    INSERT INTO students
-    (id, name, email, password, branch, semester, goal, daily_capacity_hours, created_at)
-    VALUES ($1,$2,$3,$4,$5,$6,$7,$8, NOW())
-    RETURNING *;
-  `;
-
-  const values = [
+  const studentData = {
     id,
-    student.name,
-    student.email,
-    student.password,
-    student.branch || "Not Specified",
-    student.semester || 1,
-    student.goal || "General Development",
-    student.dailyCapacityHours || 2
-  ];
+    name: student.name,
+    email: student.email,
+    password: student.password,
+    branch: student.branch || "Not Specified",
+    semester: student.semester || 1,
+    goal: student.goal || "General Development",
+    dailyCapacityHours: student.dailyCapacityHours || 2,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  };
 
-  const result = await pool.query(query, values);
-  return result.rows[0];
+  try {
+    await db.collection(STUDENTS_COLLECTION).doc(id).set(studentData);
+    return studentData;
+  } catch (err) {
+    throw new Error(`Failed to create student: ${err.message}`);
+  }
 };
 
-
 export const getStudentByEmail = async (email) => {
-  const result = await pool.query(
-    "SELECT * FROM students WHERE email = $1",
-    [email]
-  );
-  return result.rows[0];
+  const db = getFirestore();
+  try {
+    const snapshot = await db
+      .collection(STUDENTS_COLLECTION)
+      .where("email", "==", email)
+      .limit(1)
+      .get();
+
+    if (snapshot.empty) {
+      return null;
+    }
+
+    return snapshot.docs[0].data();
+  } catch (err) {
+    throw new Error(`Failed to get student by email: ${err.message}`);
+  }
 };
 
 export const getStudentById = async (id) => {
-  const result = await pool.query(
-    "SELECT * FROM students WHERE id = $1",
-    [id]
-  );
-  return result.rows[0];
+  const db = getFirestore();
+  try {
+    const doc = await db.collection(STUDENTS_COLLECTION).doc(id).get();
+
+    if (!doc.exists) {
+      return null;
+    }
+
+    return doc.data();
+  } catch (err) {
+    throw new Error(`Failed to get student by ID: ${err.message}`);
+  }
 };
 
 export const updateStudent = async (id, data) => {
-  const fields = [];
-  const values = [];
-  let paramCount = 1;
-
-  for (const [key, value] of Object.entries(data)) {
-    if (value !== undefined && key !== 'id' && key !== 'password') {
-      const dbKey = key.replace(/([A-Z])/g, '_$1').toLowerCase();
-      fields.push(`${dbKey} = $${paramCount}`);
-      values.push(value);
-      paramCount++;
-    }
+  const db = getFirestore();
+  
+  // Remove fields that shouldn't be updated
+  const updateData = { ...data };
+  delete updateData.id;
+  delete updateData.password;
+  
+  // Convert camelCase keys to match Firestore structure
+  if (updateData.dailyCapacityHours !== undefined) {
+    updateData.dailyCapacityHours = updateData.dailyCapacityHours;
   }
+  
+  updateData.updatedAt = new Date();
 
-  if (fields.length === 0) {
+  try {
+    await db.collection(STUDENTS_COLLECTION).doc(id).update(updateData);
     return getStudentById(id);
+  } catch (err) {
+    throw new Error(`Failed to update student: ${err.message}`);
   }
-
-  values.push(id);
-  const query = `UPDATE students SET ${fields.join(', ')} WHERE id = $${paramCount} RETURNING *`;
-
-  const result = await pool.query(query, values);
-  return result.rows[0];
 };
 
 export const studentRepository = {
   createStudent,
   getStudentByEmail,
   getStudentById,
-  updateStudent,
+  updateStudent
 };

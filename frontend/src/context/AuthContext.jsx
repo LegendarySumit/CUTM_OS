@@ -24,9 +24,20 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-    localStorage.setItem('studentId', userData.id);
+    // If userData is just a string (email), create a mock user object
+    const userObj = typeof userData === 'string' 
+      ? {
+          id: 'temp_user_' + Date.now(),
+          email: userData,
+          name: userData.split('@')[0],
+          role: 'student',
+          isTemporary: true
+        }
+      : userData;
+    
+    setUser(userObj);
+    localStorage.setItem('user', JSON.stringify(userObj));
+    localStorage.setItem('studentId', userObj.id);
     setError(null);
   };
 

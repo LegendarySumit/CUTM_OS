@@ -1,4 +1,4 @@
-import { ArrowLeft, Search, CheckCircle, Zap, Users, Award } from 'lucide-react';
+import { ArrowLeft, Search, CheckCircle, Zap, Users, Award, Code, TrendingUp, PenTool, Atom, DollarSign, Brain, Ruler, Dna, Palette, BookOpen, Music } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PublicLayout from '../../components/layout/PublicLayout';
@@ -14,7 +14,7 @@ export default function CoursesPage() {
       instructor: "Prof. David Miller",
       students: "342 enrolled",
       level: "Beginner",
-      icon: "💻",
+      icon: Code,
       youtubeLink: "https://www.youtube.com/watch?v=_uQrJ0TkSuc",
       description: "Learn the fundamentals of programming with Python. This comprehensive course covers variables, functions, loops, and object-oriented programming."
     },
@@ -24,7 +24,7 @@ export default function CoursesPage() {
       instructor: "Prof. Sarah Lee",
       students: "287 enrolled",
       level: "Intermediate",
-      icon: "📈",
+      icon: TrendingUp,
       youtubeLink: "https://www.youtube.com/watch?v=t98fPpkAzEI",
       description: "Master strategic business planning and learn how to implement innovation in organizations. Includes case studies and real-world examples."
     },
@@ -34,7 +34,7 @@ export default function CoursesPage() {
       instructor: "Prof. James Wilson",
       students: "156 enrolled",
       level: "Intermediate",
-      icon: "✍️",
+      icon: PenTool,
       youtubeLink: "https://www.youtube.com/watch?v=0q-YCYvfXlo",
       description: "Develop advanced writing skills for academic and professional contexts. Learn argumentation, research methods, and editing techniques."
     },
@@ -44,7 +44,7 @@ export default function CoursesPage() {
       instructor: "Prof. Emily Chen",
       students: "198 enrolled",
       level: "Advanced",
-      icon: "⚛️",
+      icon: Atom,
       youtubeLink: "https://www.youtube.com/watch?v=MzRCDLre1b4",
       description: "Explore the quantum world. This advanced course covers wave functions, Schrödinger's equation, and quantum interpretation."
     },
@@ -54,7 +54,7 @@ export default function CoursesPage() {
       instructor: "Prof. Michael Torres",
       students: "412 enrolled",
       level: "Beginner",
-      icon: "💰",
+      icon: DollarSign,
       youtubeLink: "https://www.youtube.com/watch?v=pqMYJJ1HPKE",
       description: "Understand the fundamental principles of microeconomics and macroeconomics. Learn about supply, demand, and market mechanisms."
     },
@@ -64,7 +64,7 @@ export default function CoursesPage() {
       instructor: "Prof. Rachel Johnson",
       students: "267 enrolled",
       level: "Intermediate",
-      icon: "🧠",
+      icon: Brain,
       youtubeLink: "https://www.youtube.com/watch?v=_6uIHUEqndw",
       description: "Study the human mind and behavior. Covers perception, memory, learning, and decision-making processes."
     },
@@ -74,7 +74,7 @@ export default function CoursesPage() {
       instructor: "Prof. Robert Smith",
       students: "203 enrolled",
       level: "Advanced",
-      icon: "📐",
+      icon: Ruler,
       youtubeLink: "https://www.youtube.com/watch?v=WUvTyaaNkzM",
       description: "Master advanced mathematical concepts including multivariable calculus, vector analysis, and real analysis fundamentals."
     },
@@ -84,7 +84,7 @@ export default function CoursesPage() {
       instructor: "Prof. Lisa Anderson",
       students: "289 enrolled",
       level: "Intermediate",
-      icon: "🧬",
+      icon: Dna,
       youtubeLink: "https://www.youtube.com/watch?v=URUJD5NEXC8",
       description: "Explore the structure and function of cells. Learn about molecular biology, genetics, and cellular processes."
     },
@@ -94,7 +94,7 @@ export default function CoursesPage() {
       instructor: "Prof. Maria Garcia",
       students: "176 enrolled",
       level: "Beginner",
-      icon: "🎨",
+      icon: Palette,
       youtubeLink: "https://www.youtube.com/watch?v=eFQo2hCjDBU",
       description: "Journey through art history from classical to contemporary. Study design principles and modern artistic movements."
     },
@@ -104,7 +104,7 @@ export default function CoursesPage() {
       instructor: "Prof. Thomas Brown",
       students: "234 enrolled",
       level: "Intermediate",
-      icon: "📖",
+      icon: BookOpen,
       youtubeLink: "https://www.youtube.com/playlist?list=PLhQjrBD2T382p8q1pAErU4-aSIQx4fR6j",
       description: "Explore major events and transformations of the modern world from the 18th century to present day."
     },
@@ -114,7 +114,7 @@ export default function CoursesPage() {
       instructor: "Prof. Angela White",
       students: "145 enrolled",
       level: "Beginner",
-      icon: "🎵",
+      icon: Music,
       youtubeLink: "https://www.youtube.com/playlist?list=PLw9l2QmMaZXoMdAq2kfEi6V7GZxP8fj-R",
       description: "Learn the basics of music theory. Covers notes, scales, chords, harmony, and composition principles."
     },
@@ -124,7 +124,7 @@ export default function CoursesPage() {
       instructor: "Prof. Richard Davis",
       students: "167 enrolled",
       level: "Advanced",
-      icon: "⚡",
+      icon: Zap,
       youtubeLink: "https://www.youtube.com/playlist?list=PLkyBCj4JhinkQKVsKAHx3261-cwqX6EsM",
       description: "Delve into advanced physics topics including electromagnetism, thermodynamics, and special relativity."
     }
@@ -190,7 +190,10 @@ export default function CoursesPage() {
                 >
                   {/* Top Section */}
                   <div className="flex items-start justify-between mb-4">
-                    <div className="text-5xl group-hover:scale-125 transition-transform duration-300">{course.icon}</div>
+                    {(() => {
+                      const IconComponent = course.icon;
+                      return <div className="p-4 rounded-lg bg-gradient-to-br from-primary-100 to-primary-50 group-hover:scale-125 transition-transform duration-300"><IconComponent size={40} className="text-primary-600" /></div>;
+                    })()}
                     <span className={`px-4 py-1 rounded-full text-xs font-bold whitespace-nowrap ml-2 ${
                       course.level === 'Beginner' ? 'bg-green-100 text-green-800' :
                       course.level === 'Intermediate' ? 'bg-blue-100 text-blue-800' :

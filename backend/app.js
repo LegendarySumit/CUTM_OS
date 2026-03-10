@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { config } from "./infrastructure/config/env.js";
-import { pool } from "./infrastructure/database/connection.js";
+import validateEnvironment from "./infrastructure/validation/env.validation.js";
+import { initializeFirestore } from "./infrastructure/database/firestore.js";
 import { initializeDatabase } from "./infrastructure/database/init.js";
 import authRoutes from "./api/routes/auth.routes.js";
 import studentRoutes from "./api/routes/student.routes.js";
@@ -11,6 +12,14 @@ import dashboardRoutes from "./api/routes/dashboard.routes.js";
 import feedbackRoutes from "./api/routes/feedback.routes.js";
 
 const app = express();
+
+// Validate environment variables before starting
+try {
+  validateEnvironment();
+} catch (err) {
+  console.error("❌ Startup failed:", err.message);
+  process.exit(1);
+}
 
 // Initialize database on startup
 initializeDatabase().catch(err => {
@@ -40,6 +49,7 @@ const allowedOrigins = [
   process.env.CLIENT_URL || "http://localhost:5173",
   "https://cutm-os.vercel.app",
   "http://localhost:5173",
+  "http://localhost:5176",
   "http://localhost:3000"
 ];
 
@@ -67,10 +77,12 @@ app.use("/api/feedback", feedbackRoutes);
 // Health check
 app.get("/health", async (req, res) => {
   try {
-    const result = await pool.query("SELECT NOW()");
+    const db = await initializeFirestore();
+    const timestamp = new Date().toISOString();
     res.json({ 
       status: "ok", 
-      time: result.rows[0],
+      time: timestamp,
+      database: "Firestore",
       message: "Backend is running"
     });
   } catch (err) {

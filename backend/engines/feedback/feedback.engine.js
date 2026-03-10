@@ -46,8 +46,15 @@ export class FeedbackEngine {
   static generateAlerts(student, activities, stats) {
     const alerts = [];
     const now = new Date();
-    const lastActivity = new Date(activities[0].created_at);
-    const daysSinceActivity = Math.floor((now - lastActivity) / (1000 * 60 * 60 * 24));
+    
+    // Convert Firestore Timestamp to Date if needed
+    const lastActivityTime = activities[0].createdAt;
+    const lastActivityDate = lastActivityTime instanceof Date 
+      ? lastActivityTime 
+      : lastActivityTime?.toDate ? lastActivityTime.toDate() 
+      : new Date(lastActivityTime);
+    
+    const daysSinceActivity = Math.floor((now - lastActivityDate) / (1000 * 60 * 60 * 24));
 
     // Alert 1: No activity
     if (daysSinceActivity > 3) {
@@ -234,13 +241,19 @@ export class FeedbackEngine {
     if (!activities.length) return 0;
 
     let streak = 1;
-    const sortedActivities = [...activities].sort((a, b) => 
-      new Date(b.created_at) - new Date(a.created_at)
-    );
+    const sortedActivities = [...activities].sort((a, b) => {
+      const aDate = a.createdAt instanceof Date ? a.createdAt : a.createdAt?.toDate?.() || new Date(a.createdAt);
+      const bDate = b.createdAt instanceof Date ? b.createdAt : b.createdAt?.toDate?.() || new Date(b.createdAt);
+      return bDate - aDate;
+    });
 
     for (let i = 1; i < sortedActivities.length; i++) {
-      const curr = new Date(sortedActivities[i].created_at);
-      const prev = new Date(sortedActivities[i - 1].created_at);
+      const currTime = sortedActivities[i].createdAt;
+      const prevTime = sortedActivities[i - 1].createdAt;
+      
+      const curr = currTime instanceof Date ? currTime : currTime?.toDate?.() || new Date(currTime);
+      const prev = prevTime instanceof Date ? prevTime : prevTime?.toDate?.() || new Date(prevTime);
+      
       const diffDays = (prev - curr) / (1000 * 60 * 60 * 24);
 
       if (diffDays <= 2) {

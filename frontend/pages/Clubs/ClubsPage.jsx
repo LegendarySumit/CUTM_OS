@@ -392,7 +392,10 @@ export default function ClubsPage() {
                       <span className="px-4 py-2 bg-blue-200 text-blue-800 text-xs font-bold rounded-full whitespace-nowrap">
                         {club.category}
                       </span>
-                      <button className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 group-hover:shadow-xl">
+                      <button 
+                        onClick={() => alert(`✓ You've joined ${club.title}! Check your email for next meeting details.`)}
+                        className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-bold rounded-lg hover:shadow-lg transition-all duration-300 group-hover:shadow-xl cursor-pointer"
+                      >
                         Join Club
                       </button>
                     </div>

@@ -1,6 +1,6 @@
 import AppLayout from "../../layout/AppLayout";
 import Card from "../../components/ui/Card";
-import { FaBook, FaLink, FaDownload, FaStar, FaChevronDown, FaChevronUp } from "react-icons/fa";
+import { BarChart3, Search, Zap, HardDrive, Folder, Rocket, Globe, Atom, Plug, Hammer, Palette, Sparkles, Leaf, Shuffle, CheckCircle, Beaker, FileText, Ruler, Puzzle, TreeDeciduous, Building2, Wrench, Link, Target, Hash, BookOpen, Download, Star, ChevronDown, ChevronUp, Coffee } from "lucide-react";
 import { useState } from "react";
 
 const ResourcesPage = () => {
@@ -14,7 +14,7 @@ const ResourcesPage = () => {
       title: "DSA Complete Guide",
       description: "Master data structures with real-world examples and interview questions",
       category: "Data Structures",
-      icon: "📊",
+      icon: BarChart3,
       rating: 4.8,
       reviews: 324,
       type: "PDF",
@@ -27,7 +27,7 @@ const ResourcesPage = () => {
       title: "Advanced Algorithms Mastery",
       description: "Deep dive into sorting, searching, and optimization algorithms",
       category: "Data Structures",
-      icon: "🔍",
+      icon: Search,
       rating: 4.9,
       reviews: 412,
       type: "Course",
@@ -40,7 +40,7 @@ const ResourcesPage = () => {
       title: "Big O Notation Explained",
       description: "Understand time and space complexity with practical examples",
       category: "Data Structures",
-      icon: "⚡",
+      icon: Zap,
       rating: 4.6,
       reviews: 218,
       type: "Article",
@@ -54,7 +54,7 @@ const ResourcesPage = () => {
       title: "Database Normalization",
       description: "Complete guide to database design, normalization, and optimization",
       category: "Database",
-      icon: "💾",
+      icon: HardDrive,
       rating: 4.6,
       reviews: 287,
       type: "Article",
@@ -67,7 +67,7 @@ const ResourcesPage = () => {
       title: "RDBMS Fundamentals",
       description: "Learn SQL, transactions, indexing, and query optimization",
       category: "Database",
-      icon: "🗂️",
+      icon: Folder,
       rating: 4.7,
       reviews: 356,
       type: "Course",
@@ -80,7 +80,7 @@ const ResourcesPage = () => {
       title: "SQL Query Optimization",
       description: "Advanced SQL techniques for high-performance databases",
       category: "Database",
-      icon: "🚀",
+      icon: Rocket,
       rating: 4.8,
       reviews: 198,
       type: "eBook",
@@ -94,7 +94,7 @@ const ResourcesPage = () => {
       title: "Web Development Roadmap",
       description: "Complete learning path from HTML to full-stack development",
       category: "Web Dev",
-      icon: "🌐",
+      icon: Globe,
       rating: 4.7,
       reviews: 521,
       type: "Website",
@@ -107,7 +107,7 @@ const ResourcesPage = () => {
       title: "React.js Advanced Patterns",
       description: "Master hooks, context, optimization, and performance tuning",
       category: "Web Dev",
-      icon: "⚛️",
+      icon: Atom,
       rating: 4.9,
       reviews: 445,
       type: "Course",
@@ -120,7 +120,7 @@ const ResourcesPage = () => {
       title: "REST API Design Guide",
       description: "Best practices for designing scalable and maintainable APIs",
       category: "Web Dev",
-      icon: "🔌",
+      icon: Plug,
       rating: 4.8,
       reviews: 267,
       type: "PDF",
@@ -134,7 +134,7 @@ const ResourcesPage = () => {
       title: "OOP Principles Deep Dive",
       description: "Understand inheritance, polymorphism, encapsulation with examples",
       category: "OOP",
-      icon: "🏗️",
+      icon: Hammer,
       rating: 4.7,
       reviews: 334,
       type: "Course",
@@ -147,7 +147,7 @@ const ResourcesPage = () => {
       title: "Design Patterns Handbook",
       description: "Learn creational, structural, and behavioral design patterns",
       category: "OOP",
-      icon: "🎨",
+      icon: Palette,
       rating: 4.9,
       reviews: 403,
       type: "eBook",
@@ -160,7 +160,7 @@ const ResourcesPage = () => {
       title: "SOLID Principles Explained",
       description: "Master SOLID principles for clean and maintainable code",
       category: "OOP",
-      icon: "✨",
+      icon: Sparkles,
       rating: 4.8,
       reviews: 276,
       type: "Article",
@@ -174,7 +174,7 @@ const ResourcesPage = () => {
       title: "Java Complete Guide",
       description: "From basics to advanced Java features, collections, and streams",
       category: "Java",
-      icon: "☕",
+      icon: Coffee,
       rating: 4.8,
       reviews: 567,
       type: "Course",
@@ -187,7 +187,7 @@ const ResourcesPage = () => {
       title: "Spring Framework Mastery",
       description: "Build enterprise applications with Spring Boot and Spring Cloud",
       category: "Java",
-      icon: "🌿",
+      icon: Leaf,
       rating: 4.9,
       reviews: 389,
       type: "Course",
@@ -200,7 +200,7 @@ const ResourcesPage = () => {
       title: "Multithreading in Java",
       description: "Concurrency, threads, synchronization, and thread pools",
       category: "Java",
-      icon: "🔀",
+      icon: Shuffle,
       rating: 4.7,
       reviews: 214,
       type: "PDF",
@@ -214,7 +214,7 @@ const ResourcesPage = () => {
       title: "Software Testing Fundamentals",
       description: "Unit testing, integration testing, and automated testing strategies",
       category: "Software Testing",
-      icon: "✅",
+      icon: CheckCircle,
       rating: 4.6,
       reviews: 298,
       type: "Course",
@@ -227,7 +227,7 @@ const ResourcesPage = () => {
       title: "Jest & React Testing Library",
       description: "Complete guide to testing React applications effectively",
       category: "Software Testing",
-      icon: "🧪",
+      icon: Beaker,
       rating: 4.8,
       reviews: 345,
       type: "Course",
@@ -240,7 +240,7 @@ const ResourcesPage = () => {
       title: "Test-Driven Development",
       description: "Write better code by writing tests first, TDD best practices",
       category: "Software Testing",
-      icon: "📝",
+      icon: FileText,
       rating: 4.9,
       reviews: 276,
       type: "eBook",
@@ -254,7 +254,7 @@ const ResourcesPage = () => {
       title: "Algorithm Analysis Guide",
       description: "Understand asymptotic notation, complexity analysis, and proof techniques",
       category: "DAA",
-      icon: "📐",
+      icon: Ruler,
       rating: 4.7,
       reviews: 287,
       type: "PDF",
@@ -267,7 +267,7 @@ const ResourcesPage = () => {
       title: "NP-Complete Problems",
       description: "Deep understanding of computational complexity and NP problems",
       category: "DAA",
-      icon: "🧩",
+      icon: Puzzle,
       rating: 4.8,
       reviews: 156,
       type: "Course",
@@ -280,7 +280,7 @@ const ResourcesPage = () => {
       title: "Graph Algorithms Collection",
       description: "BFS, DFS, shortest paths, minimum spanning trees, and flow networks",
       category: "DAA",
-      icon: "🌳",
+      icon: TreeDeciduous,
       rating: 4.9,
       reviews: 401,
       type: "PDF",
@@ -294,7 +294,7 @@ const ResourcesPage = () => {
       title: "System Design Interview",
       description: "Design scalable systems, databases, caching, and load balancing",
       category: "System Design",
-      icon: "🏢",
+      icon: Building2,
       rating: 4.9,
       reviews: 512,
       type: "Video",
@@ -307,7 +307,7 @@ const ResourcesPage = () => {
       title: "Microservices Architecture",
       description: "Build distributed systems with microservices patterns and practices",
       category: "System Design",
-      icon: "🔧",
+      icon: Wrench,
       rating: 4.8,
       reviews: 367,
       type: "Course",
@@ -320,7 +320,7 @@ const ResourcesPage = () => {
       title: "Distributed Systems Design",
       description: "Consensus algorithms, CAP theorem, eventual consistency, and fault tolerance",
       category: "System Design",
-      icon: "⛓️",
+      icon: Link,
       rating: 4.8,
       reviews: 234,
       type: "eBook",
@@ -334,7 +334,7 @@ const ResourcesPage = () => {
       title: "Interview Preparation Guide",
       description: "Comprehensive guide to ace coding, system design, and behavioral interviews",
       category: "Interview Prep",
-      icon: "🎯",
+      icon: Target,
       rating: 4.8,
       reviews: 678,
       type: "eBook",
@@ -347,7 +347,7 @@ const ResourcesPage = () => {
       title: "LeetCode Problem Patterns",
       description: "Master top problem-solving patterns and strategies",
       category: "Interview Prep",
-      icon: "🔢",
+      icon: Hash,
       rating: 4.9,
       reviews: 543,
       type: "Course",
@@ -454,7 +454,7 @@ const ResourcesPage = () => {
                     </div>
                   </div>
                   <div className="text-primary-600">
-                    {isExpanded ? <FaChevronUp size={20} /> : <FaChevronDown size={20} />}
+                    {isExpanded ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                   </div>
                 </div>
               </Card>
@@ -466,7 +466,10 @@ const ResourcesPage = () => {
                     <Card key={resource.id} className="hover:shadow-lg transition-shadow flex flex-col h-full">
                       {/* Header - Icon and Title Aligned */}
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="text-3xl flex-shrink-0">{resource.icon}</span>
+                        {(() => {
+                          const IconComponent = resource.icon;
+                          return <IconComponent size={28} className="text-primary-600 flex-shrink-0" />;
+                        })()}
                         <h3 className="font-semibold text-gray-900 text-sm leading-snug flex-1">{resource.title}</h3>
                       </div>
 
@@ -485,7 +488,7 @@ const ResourcesPage = () => {
                           <div className="flex items-center gap-1">
                             <div className="flex text-yellow-400">
                               {[...Array(5)].map((_, i) => (
-                                <FaStar key={i} className="text-xs" fill={i < Math.floor(resource.rating) ? "currentColor" : "none"} />
+                                <Star key={i} size={16} className="text-xs" fill={i < Math.floor(resource.rating) ? "currentColor" : "none"} />
                               ))}
                             </div>
                             <span className="text-gray-600 ml-1">({resource.reviews})</span>
@@ -499,12 +502,18 @@ const ResourcesPage = () => {
 
                       {/* Actions */}
                       <div className="flex gap-2">
-                        <button className="flex-1 flex items-center justify-center gap-2 bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition font-medium text-sm">
-                          <FaLink className="text-sm" />
+                        <button 
+                          onClick={() => window.open('#', '_blank')}
+                          className="flex-1 flex items-center justify-center gap-2 bg-primary-500 text-white py-2 rounded-lg hover:bg-primary-600 transition font-medium text-sm cursor-pointer"
+                        >
+                          <Link size={16} className="text-sm" />
                           View
                         </button>
-                        <button className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-900 py-2 rounded-lg hover:bg-gray-200 transition font-medium text-sm">
-                          <FaDownload className="text-sm" />
+                        <button 
+                          onClick={() => alert(`✓ "${resource.title}" saved to your library!`)}
+                          className="flex-1 flex items-center justify-center gap-2 bg-gray-100 text-gray-900 py-2 rounded-lg hover:bg-gray-200 transition font-medium text-sm cursor-pointer"
+                        >
+                          <Download size={16} className="text-sm" />
                           Save
                         </button>
                       </div>
@@ -516,33 +525,6 @@ const ResourcesPage = () => {
           );
         })}
       </div>
-
-      {/* Recommended For You */}
-      <Card className="mt-12">
-        <div className="flex items-center justify-between mb-5">
-          <h3 className="text-lg font-semibold text-gray-900">💡 Recommended For You</h3>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {[
-            { title: "Advanced DSA Patterns", reason: "Based on your recent activities", difficulty: "Advanced" },
-            { title: "Java Concurrency Mastery", reason: "Popular in your department", difficulty: "Intermediate" },
-            { title: "System Design for Interviews", reason: "Trending this week", difficulty: "Advanced" },
-            { title: "React Testing Best Practices", reason: "Recommended for Web Dev", difficulty: "Intermediate" },
-          ].map((rec, idx) => (
-            <div key={idx} className="p-4 bg-gradient-to-r from-primary-50 to-blue-50 border border-primary-200 rounded-lg hover:shadow-md transition">
-              <div className="flex items-start justify-between">
-                <div>
-                  <p className="text-sm font-medium text-gray-900">{rec.title}</p>
-                  <p className="text-xs text-gray-500 mt-1">{rec.reason}</p>
-                </div>
-                <span className={`text-xs font-medium px-2 py-1 rounded whitespace-nowrap ml-2 ${getDifficultyColor(rec.difficulty)}`}>
-                  {rec.difficulty}
-                </span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </Card>
     </AppLayout>
   );
 };

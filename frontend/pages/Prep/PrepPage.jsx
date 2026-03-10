@@ -3,7 +3,7 @@ import { useAuth } from "../../src/context/AuthContext";
 import { activityAPI } from "../../src/services";
 import AppLayout from "../../layout/AppLayout";
 import Card from "../../components/ui/Card";
-import { FaPlus, FaBook, FaCode, FaGraduationCap, FaTrash } from "react-icons/fa";
+import { Plus, BookOpen, Code, Award, Trash2 } from "lucide-react";
 
 const PrepPage = () => {
   const { user } = useAuth();
@@ -148,7 +148,7 @@ const PrepPage = () => {
           onClick={() => setShowForm(!showForm)}
           className="flex items-center gap-2 bg-gradient-to-r from-primary-500 to-primary-600 text-white px-6 py-3 rounded-lg hover:from-primary-600 hover:to-primary-700 transition-all"
         >
-          <FaPlus /> Log Activity
+          <Plus size={20} /> Log Activity
         </button>
       </div>
 
@@ -226,7 +226,7 @@ const PrepPage = () => {
         <Card>
           <div className="flex items-center gap-3">
             <div className="p-3 bg-blue-100 rounded-lg">
-              <FaBook className="text-blue-600 text-xl" />
+              <BookOpen className="text-blue-600 text-xl" size={24} />
             </div>
             <div>
               <p className="text-gray-600 text-sm">Total Activities</p>
@@ -237,7 +237,7 @@ const PrepPage = () => {
         <Card>
           <div className="flex items-center gap-3">
             <div className="p-3 bg-green-100 rounded-lg">
-              <FaCode className="text-green-600 text-xl" />
+              <Code className="text-green-600 text-xl" size={24} />
             </div>
             <div>
               <p className="text-gray-600 text-sm">This Week</p>
@@ -254,7 +254,7 @@ const PrepPage = () => {
         <Card>
           <div className="flex items-center gap-3">
             <div className="p-3 bg-purple-100 rounded-lg">
-              <FaGraduationCap className="text-purple-600 text-xl" />
+              <Award className="text-purple-600 text-xl" size={24} />
             </div>
             <div>
               <p className="text-gray-600 text-sm">Streak</p>
@@ -295,7 +295,7 @@ const PrepPage = () => {
                     className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition"
                     title="Delete activity"
                   >
-                    <FaTrash size={16} />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </div>

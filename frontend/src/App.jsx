@@ -10,6 +10,13 @@ import StudentLifePage from '../pages/StudentLife/StudentLifePage';
 import AdmissionsPage from '../pages/Admissions/AdmissionsPage';
 import ClubsPage from '../pages/Clubs/ClubsPage';
 
+// Footer Pages
+import AccessibilityPage from '../pages/Accessibility/AccessibilityPage';
+import CareersPage from '../pages/Careers/CareersPage';
+import PrivacyPolicyPage from '../pages/PrivacyPolicy/PrivacyPolicyPage';
+import TermsOfServicePage from '../pages/TermsOfService/TermsOfServicePage';
+import SupportPage from '../pages/Support/SupportPage';
+
 // Auth Pages
 import LoginPage from '../pages/Auth/LoginPage';
 import RegisterPage from '../pages/Auth/RegisterPage';
@@ -65,6 +72,13 @@ function AppRoutes() {
       <Route path="/student-life" element={<StudentLifePage />} />
       <Route path="/clubs" element={<ClubsPage />} />
       <Route path="/admissions" element={<AdmissionsPage />} />
+
+      {/* Footer Pages */}
+      <Route path="/accessibility" element={<AccessibilityPage />} />
+      <Route path="/careers" element={<CareersPage />} />
+      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+      <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+      <Route path="/support" element={<SupportPage />} />
 
       {/* Auth Routes */}
       <Route path="/login" element={<LoginPage />} />

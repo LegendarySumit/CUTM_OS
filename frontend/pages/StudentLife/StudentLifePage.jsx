@@ -1,14 +1,29 @@
-import { Users, Music, Trophy, Heart, BookOpen, Zap, ChevronLeft, ChevronRight, MapPin, Clock, Sparkles, Award } from 'lucide-react';
-import { useState } from 'react';
+import { Users, Music, Trophy, Heart, BookOpen, Zap, ChevronLeft, ChevronRight, MapPin, Clock, Sparkles, Award, Stethoscope, Brain, Briefcase } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../src/context/AuthContext';
 import PublicLayout from '../../components/layout/PublicLayout';
 import HeroSection from '../../components/sections/HeroSection';
 import { Button } from '../../components/ui/Button';
 
 export default function StudentLifePage() {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [hoveredAlumni, setHoveredAlumni] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  // Auto-scroll to hash section when page loads or hash changes
+  useEffect(() => {
+    const hash = window.location.hash.slice(1); // Remove '#' from hash
+    if (hash) {
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, []);
   
   const clubs = [
     {
@@ -211,7 +226,7 @@ export default function StudentLifePage() {
       />
 
       {/* Clubs & Organizations - Enhanced */}
-      <section className="bg-gradient-to-br from-slate-50 via-white to-secondary-50 py-20 relative overflow-hidden">
+      <section id="clubs" className="bg-gradient-to-br from-slate-50 via-white to-secondary-50 py-20 relative overflow-hidden">
         {/* Decorative elements */}
         <div className="absolute top-20 right-0 w-96 h-96 bg-secondary-200/20 rounded-full blur-3xl -mr-48"></div>
         <div className="absolute bottom-40 left-0 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl -ml-48"></div>
@@ -254,7 +269,7 @@ export default function StudentLifePage() {
       </section>
 
       {/* Campus Events - Minimalist Design */}
-      <section className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-white">
+      <section id="key-dates" className="relative py-24 sm:py-32 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-white">
         {/* Subtle decorative elements */}
         <div className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl bg-blue-200/10 pointer-events-none"></div>
         <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl bg-slate-200/10 pointer-events-none"></div>
@@ -324,7 +339,10 @@ export default function StudentLifePage() {
                       {activity.description}
                     </p>
 
-                    <button className={`w-full px-4 py-2.5 font-semibold rounded-lg transition-all duration-300 ${buttonColors[idx]}`}>
+                    <button 
+                      onClick={() => navigate('/student-life#key-dates')}
+                      className={`w-full px-4 py-2.5 font-semibold rounded-lg transition-all duration-300 cursor-pointer ${buttonColors[idx]}`}
+                    >
                       Learn More
                     </button>
                   </div>
@@ -353,7 +371,9 @@ export default function StudentLifePage() {
               <p className="text-lg text-slate-200 mb-8 leading-relaxed">
                 At CUTM OS, we believe in empowering students to achieve their full potential. We create an inclusive, supportive community where every voice matters and every student is equipped to succeed.
               </p>
-              <button className="px-8 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-bold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105">
+              <button 
+                onClick={() => navigate(user ? '/dashboard' : '/register')}
+                className="px-8 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-bold rounded-lg transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105">
                 Start Your Journey
               </button>
             </div>
@@ -387,7 +407,7 @@ export default function StudentLifePage() {
       </section>
 
       {/* Housing & Residential Life - Minimalist Redesign */}
-      <section className="bg-gradient-to-b from-slate-50 via-cyan-50/30 to-white py-20 relative overflow-hidden">
+      <section id="housing" className="bg-gradient-to-b from-slate-50 via-cyan-50/30 to-white py-20 relative overflow-hidden">
         <div className="absolute top-32 -right-40 w-80 h-80 bg-cyan-200/25 rounded-full blur-3xl"></div>
         <div className="absolute -bottom-32 -left-40 w-80 h-80 bg-blue-200/25 rounded-full blur-3xl"></div>
         
@@ -423,7 +443,10 @@ export default function StudentLifePage() {
                       </div>
                     </div>
                     <p className="text-slate-700 mb-6 font-medium leading-relaxed">{dorm.description}</p>
-                    <button className={`px-6 py-2 bg-white/50 ${color.btn} font-semibold rounded-lg transition-all duration-300 border border-white/60`}>
+                    <button 
+                      onClick={() => alert(`Visit ${dorm.name} or contact admissions for housing information`)}
+                      className={`px-6 py-2 bg-white/50 ${color.btn} font-semibold rounded-lg transition-all duration-300 border border-white/60 cursor-pointer`}
+                    >
                       Learn More
                     </button>
                   </div>
@@ -456,7 +479,7 @@ export default function StudentLifePage() {
       </section>
 
       {/* Alumni Excellence - Enhanced */}
-      <section className="bg-white py-20 relative overflow-hidden">
+      <section id="alumni" className="bg-white py-20 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl -ml-48 -mt-48"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -600,73 +623,100 @@ export default function StudentLifePage() {
       </section>
 
       {/* Wellness & Support - Enhanced */}
-      <section className="bg-gradient-to-br from-primary-800 via-primary-900 to-primary-800 py-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl -mr-48 -mt-48"></div>
-        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-500/10 rounded-full blur-3xl -ml-48 -mb-48"></div>
+      <section className="bg-gradient-to-br from-slate-50 via-white to-blue-50 border-t border-slate-200 py-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-primary-200/20 rounded-full blur-3xl -mr-48 -mt-48"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-200/20 rounded-full blur-3xl -ml-48 -mb-48"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="mb-4 inline-block pb-3 border-b-2 border-accent-400">
-              <p className="text-accent-300 font-bold text-sm uppercase tracking-wider">Support Services</p>
+              <p className="text-accent-600 font-bold text-sm uppercase tracking-wider">Support Services</p>
             </div>
-            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">Student Support & Wellness</h2>
-            <p className="text-lg text-slate-300 font-medium max-w-2xl mx-auto">Comprehensive resources designed to support your academic journey, mental health, and personal growth</p>
+            <h2 className="text-4xl sm:text-5xl font-bold text-primary-900 mb-4">Student Support & Wellness</h2>
+            <p className="text-lg text-slate-600 font-medium max-w-2xl mx-auto">Comprehensive resources designed to support your academic journey, mental health, and personal growth</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {[
               { 
-                icon: "🏥", 
+                icon: Stethoscope, 
                 title: "Health Center", 
                 desc: "Comprehensive medical care, preventive health screenings, and wellness programs to keep you healthy and thriving",
-                services: ["On-campus clinic", "Health screenings", "Wellness programs"]
+                services: ["On-campus clinic", "Health screenings", "Wellness programs"],
+                bgGradient: "from-blue-50/80 to-primary-50/80",
+                borderColor: "border-primary-300/40 hover:border-primary-400/60",
+                titleColor: "text-primary-900",
+                iconBg: "from-primary-200 to-primary-100",
+                iconColor: "text-primary-600"
               },
               { 
-                icon: "🧠", 
+                icon: Brain, 
                 title: "Counseling Services", 
                 desc: "Professional mental health support including individual therapy, group sessions, and 24/7 crisis support",
-                services: ["Individual therapy", "Group sessions", "Crisis support"]
+                services: ["Individual therapy", "Group sessions", "Crisis support"],
+                bgGradient: "from-amber-50/80 to-orange-50/80",
+                borderColor: "border-amber-300/40 hover:border-amber-400/60",
+                titleColor: "text-amber-900",
+                iconBg: "from-amber-200 to-orange-100",
+                iconColor: "text-amber-600"
               },
               { 
-                icon: "📚", 
+                icon: BookOpen, 
                 title: "Academic Success", 
                 desc: "Personalized tutoring, collaborative study groups, and academic coaching to help you excel",
-                services: ["Peer tutoring", "Study groups", "Academic coaching"]
+                services: ["Peer tutoring", "Study groups", "Academic coaching"],
+                bgGradient: "from-rose-50/80 to-pink-50/80",
+                borderColor: "border-rose-300/40 hover:border-rose-400/60",
+                titleColor: "text-rose-900",
+                iconBg: "from-rose-200 to-pink-100",
+                iconColor: "text-rose-600"
               },
               { 
-                icon: "🎯", 
+                icon: Briefcase, 
                 title: "Career Services", 
                 desc: "Expert guidance on resume building, interview preparation, and connecting with job opportunities",
-                services: ["Resume building", "Interview prep", "Job listings"]
+                services: ["Resume building", "Interview prep", "Job listings"],
+                bgGradient: "from-blue-50/80 to-primary-50/80",
+                borderColor: "border-primary-300/40 hover:border-primary-400/60",
+                titleColor: "text-primary-900",
+                iconBg: "from-primary-200 to-primary-100",
+                iconColor: "text-primary-600"
               }
-            ].map((item, idx) => (
-              <div key={idx} className="group relative h-full">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-500/20 to-secondary-500/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl p-7 rounded-xl border border-white/20 group-hover:border-accent-400/50 transition-all duration-300 hover:shadow-2xl h-full flex flex-col">
-                  {/* Icon */}
-                  <div className="text-5xl mb-5 group-hover:scale-110 transition-transform duration-300 inline-block">{item.icon}</div>
-                  
-                  {/* Title & Description */}
-                  <h3 className="font-bold text-white text-lg mb-2.5">{item.title}</h3>
-                  <p className="text-slate-200 text-sm leading-relaxed mb-5 flex-grow font-medium">{item.desc}</p>
-                  
-                  {/* Services List */}
-                  <ul className="space-y-1.5 mb-5 pb-5 border-b border-white/10">
-                    {item.services.map((service, sidx) => (
-                      <li key={sidx} className="text-sm text-slate-300 flex items-center gap-2">
-                        <span className="w-1 h-1 rounded-full bg-accent-400"></span>
-                        {service}
-                      </li>
-                    ))}
-                  </ul>
-                  
-                  {/* CTA Button */}
-                  <button className="w-full px-4 py-2.5 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-semibold text-xs rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/50">
-                    Learn More
-                  </button>
+            ].map((item, idx) => {
+              const IconComponent = item.icon;
+              return (
+                <div key={idx} className="group h-full">
+                  <div className={`relative bg-gradient-to-br ${item.bgGradient} backdrop-blur-md p-7 rounded-2xl border ${item.borderColor} transition-all duration-300 hover:shadow-2xl hover:scale-105 h-full flex flex-col shadow-lg`}>
+                    {/* Icon Container */}
+                    <div className={`relative inline-flex w-fit mb-6 p-4 rounded-xl bg-gradient-to-br ${item.iconBg} group-hover:shadow-lg transition-all duration-300 group-hover:scale-110`}>
+                      <IconComponent className={`w-8 h-8 ${item.iconColor}`} strokeWidth={1.5} />
+                    </div>
+                    
+                    {/* Title & Description */}
+                    <h3 className={`font-bold ${item.titleColor} text-lg mb-3`}>{item.title}</h3>
+                    <p className="text-slate-700 text-sm leading-relaxed mb-5 flex-grow">{item.desc}</p>
+                    
+                    {/* Services List */}
+                    <ul className="space-y-2 mb-6 pb-6 border-b border-slate-300">
+                      {item.services.map((service, sidx) => (
+                        <li key={sidx} className="text-sm text-slate-700 flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-accent-500"></span>
+                          {service}
+                        </li>
+                      ))}
+                    </ul>
+                    
+                    {/* CTA Button */}
+                    <button 
+                      onClick={() => navigate('/support')}
+                      className="w-full px-4 py-3 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-semibold text-sm rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent-500/50 hover:scale-105 cursor-pointer"
+                    >
+                      Learn More
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -690,7 +740,10 @@ export default function StudentLifePage() {
             Whether you're looking for academic excellence, vibrant campus life, or professional development, CUTM OS is your gateway to success.
           </p>
           
-          <button className="px-10 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2">
+          <button 
+            onClick={() => navigate('/admissions')}
+            className="px-10 py-4 bg-gradient-to-r from-accent-500 to-accent-600 hover:from-accent-600 hover:to-accent-700 text-white font-bold rounded-lg transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 inline-flex items-center gap-2 cursor-pointer"
+          >
             Apply for Admission
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
