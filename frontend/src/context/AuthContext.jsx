@@ -24,20 +24,19 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = (userData) => {
-    // If userData is just a string (email), create a mock user object
-    const userObj = typeof userData === 'string' 
-      ? {
-          id: 'temp_user_' + Date.now(),
-          email: userData,
-          name: userData.split('@')[0],
-          role: 'student',
-          isTemporary: true
-        }
-      : userData;
+    // Only accept authenticated user objects from backend
+    if (!userData || typeof userData !== 'object' || !userData.id) {
+      throw new Error('Invalid user data. User must be authenticated first.');
+    }
+
+    // Don't allow temporary/fake users
+    if (userData.isTemporary) {
+      throw new Error('Temporary sessions not allowed. Please register first.');
+    }
     
-    setUser(userObj);
-    localStorage.setItem('user', JSON.stringify(userObj));
-    localStorage.setItem('studentId', userObj.id);
+    setUser(userData);
+    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem('studentId', userData.id);
     setError(null);
   };
 

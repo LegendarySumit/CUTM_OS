@@ -27,25 +27,28 @@ const LoginPage = () => {
         throw new Error('Please fill in all fields');
       }
 
-      // ✅ AUTO-LOGIN - DB not yet made
-      // In production, this will call: const response = await authAPI.login(email, password);
-      // For now, we create a temporary user session
-      const userData = {
-        id: 'temp_' + Date.now(),
-        email: email,
-        name: email.split('@')[0],
-        role: 'student',
-        isTemporary: true
-      };
+      if (password.length < 6) {
+        throw new Error('Invalid email or password');
+      }
 
+      // Call backend login API - validates against Firestore
+      const response = await authAPI.login(email, password);
+
+      if (!response?.data?.data?.id) {
+        throw new Error('Invalid response from server');
+      }
+
+      // Store authenticated user from backend
+      const userData = response.data.data;
       login(userData);
       
-      // Small delay for UX
+      // Redirect to dashboard
       setTimeout(() => {
         navigate('/dashboard');
       }, 500);
     } catch (err) {
-      setError(err.message || 'Login failed');
+      const message = err.response?.data?.message || err.message || 'Login failed. Please check your credentials.';
+      setError(message);
     } finally {
       setLoading(false);
     }

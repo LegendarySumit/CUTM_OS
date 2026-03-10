@@ -82,29 +82,32 @@ const RegisterPage = () => {
         throw new Error('Password must be at least 6 characters');
       }
 
-      // ✅ AUTO-REGISTER - DB not yet made
-      // In production, this will call: const response = await authAPI.register({...});
-      // For now, we create a temporary user session with form data
-      const userData = {
-        id: 'temp_' + Date.now(),
-        name: formData.name,
-        email: formData.email,
+      // Call backend register API - saves credentials to Firestore
+      const response = await authAPI.register({
+        name: formData.name.trim(),
+        email: formData.email.toLowerCase().trim(),
+        password: formData.password,
         branch: formData.branch,
         semester: parseInt(formData.semester),
         goal: formData.goal,
         dailyCapacityHours: parseInt(formData.dailyCapacityHours),
-        role: 'student',
-        isTemporary: true
-      };
+      });
 
+      if (!response?.data?.data?.id) {
+        throw new Error('Registration failed - no user ID received');
+      }
+
+      // Login user after successful registration
+      const userData = response.data.data;
       login(userData);
       
-      // Small delay for UX
+      // Redirect to dashboard
       setTimeout(() => {
         navigate('/dashboard');
       }, 500);
     } catch (err) {
-      setError(err.message || 'Registration failed');
+      const message = err.response?.data?.message || err.message || 'Registration failed. Please try again.';
+      setError(message);
     } finally {
       setLoading(false);
     }
