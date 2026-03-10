@@ -27,14 +27,20 @@ export const loginStudent = async (email, password) => {
   const student = await getStudentByEmail(email);
 
   if (!student) {
-    throw new Error("Invalid email or password");
+    const error = new Error("No account found with this email. Please sign up first.");
+    error.status = 404;
+    error.code = "USER_NOT_FOUND";
+    throw error;
   }
 
   // Compare password with hashed password
   const isPasswordValid = await bcrypt.compare(password, student.password);
 
   if (!isPasswordValid) {
-    throw new Error("Invalid email or password");
+    const error = new Error("Incorrect password. Please try again.");
+    error.status = 401;
+    error.code = "INVALID_PASSWORD";
+    throw error;
   }
 
   return student;

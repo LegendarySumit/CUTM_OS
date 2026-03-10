@@ -28,9 +28,12 @@ initializeDatabase().catch(err => {
 });
 
 // Rate limiting - Strict for auth endpoints, moderate for others
+// Development: lenient, Production: strict
+const isDevelopment = process.env.NODE_ENV === 'development';
+
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // 5 requests per windowMs
+  max: isDevelopment ? 100 : 5, // 100 requests in dev, 5 in production
   message: "Too many login attempts, please try again later",
   standardHeaders: true,
   legacyHeaders: false,
@@ -38,7 +41,7 @@ const authLimiter = rateLimit({
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // 100 requests per windowMs
+  max: isDevelopment ? 500 : 100, // 500 requests in dev, 100 in production
   message: "Too many requests, please try again later",
   standardHeaders: true,
   legacyHeaders: false,
@@ -50,6 +53,7 @@ const allowedOrigins = [
   "https://cutm-os.vercel.app",
   "http://localhost:5173",
   "http://localhost:5176",
+  "http://localhost:5177",
   "http://localhost:3000"
 ];
 

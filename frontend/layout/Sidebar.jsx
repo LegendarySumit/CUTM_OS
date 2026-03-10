@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../src/context/AuthContext";
 import { LayoutDashboard, BookOpen, Folder, Wrench, User, LogOut } from "lucide-react";
+import CollegeLogo from "../components/Logo/CollegeLogo";
 
 const Sidebar = () => {
   const { logout } = useAuth();
@@ -26,8 +27,8 @@ const Sidebar = () => {
         to="/dashboard" 
         className="mb-8 flex items-center gap-3 hover:opacity-80 transition-opacity"
       >
-        <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">
-          C
+        <div className="w-10 h-10">
+          <CollegeLogo size={40} />
         </div>
         <div>
           <div className="text-xl font-bold text-slate-900">CUTM OS</div>

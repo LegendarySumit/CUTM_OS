@@ -83,12 +83,21 @@ export const login = async (req, res) => {
       }
     });
   } catch (err) {
-    const status = err.status || 401;
-    const message = err.message || "Login failed";
+    let status = err.status || 401;
+    let message = err.message || "Login failed";
+    
+    // Provide user-friendly messages without console errors
+    if (err.code === "USER_NOT_FOUND") {
+      status = 404;
+      message = "No account found with this email. Please sign up first.";
+    } else if (err.code === "INVALID_PASSWORD") {
+      status = 401;
+      message = "Incorrect password. Please try again.";
+    }
+    
     res.status(status).json({
       success: false,
-      message,
-      ...(process.env.NODE_ENV === 'development' && { error: err.message })
+      message
     });
   }
 };

@@ -4,7 +4,6 @@ import { useAuth } from "../../src/context/AuthContext";
 import { dashboardAPI } from "../../src/services";
 import AppLayout from "../../layout/AppLayout";
 import { Target, Flame, CheckCircle, Clock, BookOpen, BarChart3, Settings, AlertCircle, ArrowRight, Zap, TrendingUp } from "lucide-react";
-import AlertsCard from "../../components/ui/AlertsCard";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -282,12 +281,6 @@ const Dashboard = () => {
             <p className="text-xs text-slate-600 mt-2">20% progress</p>
           </div>
         </div>
-      </div>
-
-      {/* System Insights */}
-      <div className="bg-white rounded-xl border border-slate-200 p-6">
-        <h3 className="text-lg font-bold text-slate-900 mb-6">System Insights</h3>
-        <AlertsCard studentId={user?.id} />
       </div>
     </AppLayout>
   );

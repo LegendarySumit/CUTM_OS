@@ -17,7 +17,11 @@ export const studentAPI = {
 export const activityAPI = {
   create: (data) => apiClient.post('/activities', data),
   getByStudent: (studentId) => apiClient.get(`/activities/${studentId}`),
-  delete: (id, studentId) => apiClient.delete(`/activities/${id}`, { data: { studentId } }),
+  delete: (id, studentId) => apiClient.delete(`/activities/${id}`, {
+    data: {
+      studentId: studentId
+    }
+  }),
 };
 
 // Dashboard APIs

@@ -24,18 +24,22 @@ const LoginPage = () => {
 
     try {
       if (!email || !password) {
-        throw new Error('Please fill in all fields');
+        setError('Please enter your email and password');
+        setLoading(false);
+        return;
       }
 
       if (password.length < 6) {
-        throw new Error('Invalid email or password');
+        setError('Password must be at least 6 characters');
+        setLoading(false);
+        return;
       }
 
       // Call backend login API - validates against Firestore
       const response = await authAPI.login(email, password);
 
       if (!response?.data?.data?.id) {
-        throw new Error('Invalid response from server');
+        throw new Error('Unable to authenticate');
       }
 
       // Store authenticated user from backend
@@ -47,7 +51,20 @@ const LoginPage = () => {
         navigate('/dashboard');
       }, 500);
     } catch (err) {
-      const message = err.response?.data?.message || err.message || 'Login failed. Please check your credentials.';
+      // Get user-friendly message from server, avoid technical errors
+      let message = 'Unable to sign in. Please try again.';
+      
+      if (err.response?.status === 429) {
+        // Rate limit error
+        message = 'Too many login attempts. Please wait a few minutes before trying again.';
+      } else if (err.response?.data?.message) {
+        // Use server message (it's already user-friendly)
+        message = err.response.data.message;
+      } else if (err.message && !err.message.includes('Network')) {
+        // Use error message only if it's not a network error
+        message = err.message;
+      }
+      
       setError(message);
     } finally {
       setLoading(false);
@@ -77,9 +94,8 @@ const LoginPage = () => {
             <p className="text-slate-600 text-sm mb-6">Continue your academic journey</p>
             {/* Error Message */}
             {error && (
-              <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm animate-pulse">
-                <p className="font-semibold">⚠️ Login Error</p>
-                <p>{error}</p>
+              <div className="bg-red-50/80 backdrop-blur-sm border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm mb-6">
+                <p className="font-semibold">⚠️ {error}</p>
               </div>
             )}
 

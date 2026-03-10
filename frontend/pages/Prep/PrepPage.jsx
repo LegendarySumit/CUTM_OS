@@ -84,10 +84,10 @@ const PrepPage = () => {
       const response = await activityAPI.create(newActivity);
       
       // Add the new activity to the list
-      if (response.data) {
+      if (response.data && response.data.data) {
         setActivities((prevActivities) => {
           const currentActivities = Array.isArray(prevActivities) ? prevActivities : [];
-          return [response.data, ...currentActivities];
+          return [response.data.data, ...currentActivities];
         });
       } else {
         // If response doesn't have data, refetch all activities

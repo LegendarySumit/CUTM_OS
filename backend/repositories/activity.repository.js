@@ -13,8 +13,8 @@ export const createActivity = async (activity) => {
     domain: activity.domain,
     action: activity.action,
     metadata: activity.metadata || {},
-    createdAt: new Date(),
-    updatedAt: new Date()
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString()
   };
 
   try {
@@ -37,7 +37,7 @@ export const getActivitiesByStudent = async (studentId) => {
     // Sort in memory instead of using Firestore orderBy
     // This avoids requiring a composite index
     const activities = snapshot.docs.map(doc => doc.data());
-    return activities.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return activities.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   } catch (err) {
     throw new Error(`Failed to get activities: ${err.message}`);
   }
