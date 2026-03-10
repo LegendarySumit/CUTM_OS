@@ -15,22 +15,27 @@ export const initializeFirestore = async () => {
       if (process.env.FIREBASE_SERVICE_ACCOUNT_BASE64) {
         try {
           // Decode base64 to UTF-8 JSON string
-          const decodedJson = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8');
+          let decodedJson = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8');
           
-          // Parse JSON (handles CRLF line endings automatically)
+          // CRITICAL: Remove Windows line endings (CRLF) that might corrupt the JSON
+          decodedJson = decodedJson.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+          
+          // Parse JSON
           serviceAccount = JSON.parse(decodedJson);
           
-          // Fix: Convert literal \n escape sequences to actual newlines in private_key
-          // This handles both escaped Unicode (\n) and escaped literal backslash-n (\\n)
+          // Fix: Firebase requires actual newlines in the private key
+          // Make sure all escape sequences are converted to real newlines
           if (serviceAccount.private_key && typeof serviceAccount.private_key === 'string') {
-            // Replace escaped newlines with actual newlines
-            serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+            serviceAccount.private_key = serviceAccount.private_key
+              .replace(/\\n/g, '\n')           // Replace \n escapes with actual newlines
+              .replace(/\\r/g, '\r')           // Replace \r escapes
+              .trim();                         // Remove leading/trailing whitespace
           }
           
           console.log("✅ Loaded service account from FIREBASE_SERVICE_ACCOUNT_BASE64 env var");
         } catch (err) {
           console.error("❌ Failed to decode FIREBASE_SERVICE_ACCOUNT_BASE64:", err.message);
-          console.error("   Ensure the base64 string is valid and properly formatted");
+          throw err;
         }
       }
 
