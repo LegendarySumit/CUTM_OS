@@ -16,6 +16,12 @@ export const initializeFirestore = async () => {
         try {
           const decodedJson = Buffer.from(process.env.FIREBASE_SERVICE_ACCOUNT_BASE64, 'base64').toString('utf-8');
           serviceAccount = JSON.parse(decodedJson);
+          
+          // Fix: Convert literal \n escape sequences to actual newlines in private_key
+          if (serviceAccount.private_key && typeof serviceAccount.private_key === 'string') {
+            serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+          }
+          
           console.log("✅ Loaded service account from FIREBASE_SERVICE_ACCOUNT_BASE64 env var");
         } catch (err) {
           console.warn("⚠️  Failed to decode FIREBASE_SERVICE_ACCOUNT_BASE64:", err.message);
